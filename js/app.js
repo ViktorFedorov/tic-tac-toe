@@ -1,19 +1,6 @@
-const App = {
-  // All of our selected HTML elements
-  $: {
-    menu: document.querySelector('[data-id="menu"]'),
-    menuItems: document.querySelector('[data-id="menu-items"]'),
-    resetBtn: document.querySelector('[data-id="reset-btn"]'),
-    newGameBtn: document.querySelector('[data-id="new-round-btn"]'),
-    squares: document.querySelectorAll('[data-id="square"]'),
-    modal: document.querySelector('.modal'),
-    modalMessage: document.getElementById('message'),
-    modalAgainBtn: document.querySelector('.modal-contents > button'),
-    turn: document.querySelector('.turn')
-    // playerIcon: document.querySelector('.turn i'),
-    // whoIsUpText: document.querySelector('.turn p')
-  },
+import View from './view.js'
 
+const App = {
   init() {
     App.registerEventListeners()
   },
@@ -80,9 +67,9 @@ const App = {
   },
 
   registerEventListeners() {
-    App.$.menu.addEventListener('click', (e) => {
-      App.$.menuItems.classList.toggle('hidden')
-    })
+    // App.$.menu.addEventListener('click', (e) => {
+    //   App.$.menuItems.classList.toggle('hidden')
+    // })
 
     // закрытие модалки
     App.$.modalAgainBtn.addEventListener('click', () => {
@@ -148,9 +135,19 @@ const App = {
       })
     )
 
-    App.$.resetBtn.addEventListener('click', (e) => console.log(e.target))
-    App.$.newGameBtn.addEventListener('click', (e) => console.log(e.target))
+    // App.$.resetBtn.addEventListener('click', (e) => console.log(e.target))
+    // App.$.newGameBtn.addEventListener('click', (e) => console.log(e.target))
   }
 }
 
-window.addEventListener('load', App.init)
+function init() {
+  const view = new View()
+
+  view.bindGameResetEvent((e) => console.log('Reset event ', e))
+  view.bindPlayerMoveEvent((e) => console.log('Player move event ', e))
+  view.bindNewRoundEvent((e) => console.log('New round event ', e))
+}
+
+window.addEventListener('load', init)
+
+export default init
